@@ -1,36 +1,37 @@
 # Name of your application. Used to uniquely configure containers.
-service: my-app
+service: cairo
 
 # Name of the container image.
-image: user/my-app
+image: cr0t/cairo-kamal
 
 # Deploy to these servers.
 servers:
-  - 192.168.0.1
+  - 192.168.1.7
 
 # Credentials for your image host.
 registry:
-  # Specify the registry server, if you're not using Docker Hub
-  # server: registry.digitalocean.com / ghcr.io / ...
-  username: my-user
-
-  # Always use an access token rather than real password when possible.
+  server: ghcr.io
+  username: cr0t
   password:
     - KAMAL_REGISTRY_PASSWORD
 
 # Inject ENV variables into containers (secrets come from .env).
 # Remember to run `kamal env push` after making changes!
-# env:
-#   clear:
-#     DB_HOST: 192.168.0.2
-#   secret:
-#     - RAILS_MASTER_KEY
+env:
+  clear:
+    PHX_HOST: 192.168.1.7
+    PORT: 3000
+  secret:
+    - SECRET_KEY_BASE
 
 # Use a different ssh user than root
-# ssh:
-#   user: app
+ssh:
+  user: cr0t
 
 # Configure builder setup.
+builder:
+  multiarch: false
+
 # builder:
 #   args:
 #     RUBY_VERSION: 3.2.0
